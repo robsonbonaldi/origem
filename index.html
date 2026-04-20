@@ -1092,9 +1092,9 @@ SUBTÍTULO: [uma linha de apoio]
 **frase**: UMA ÚNICA frase de autoridade. Máx 15 palavras. Para usar sobre foto profissional. Sem aspas. Sem hashtags. Deve parar o scroll. Pode ser provocativa, filosófica ou visionária. Assina: — Robson Bonaldi`;
 
   try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const response = await fetch("https://origem-proxy.rbonaldiimoveis.workers.dev", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "x-api-key": "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", "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         model: "claude-sonnet-4-20250514",
         max_tokens: 4000,
