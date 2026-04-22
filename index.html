@@ -1161,17 +1161,19 @@ SUBTÍTULO: [uma linha de apoio]
 
 **frase**: UMA ÚNICA frase de autoridade. Máx 15 palavras. Para usar sobre foto profissional. Sem aspas. Sem hashtags. Deve parar o scroll. Pode ser provocativa, filosófica ou visionária. Assina: — Robson Bonaldi
 
-**imagem**: Prompt profissional para geração de imagem no Gemini ou ChatGPT. Formato: ${state.activeFormatLabel}.
-REGRAS DO PROMPT DE IMAGEM:
+**imagem**: Prompt profissional para geração de imagem no Gemini ou ChatGPT.
+O prompt gerado DEVE começar obrigatoriamente com esta linha exata:
+"Image size: ${state.activeFormatLabel} | Aspect ratio: ${state.activeFormat}"
+Depois desta linha, construa o prompt visual seguindo as regras:
 - Tom SEMPRE provocador: justaposição de elementos que não deveriam estar juntos mas criam tensão e beleza
 - Estética: filosófico + tecnológico + premium + autoridade
 - O viewer deve parar o dedo na tela para processar o que está vendo
 - Use referências visuais cinematográficas, arquitetônicas ou de natureza extrema
 - Nunca pessoas específicas. Pode ter silhueta, sombra, presença humana abstrata
 - Inclua: iluminação dramática, paleta de cores (máx 3 tons), composição, ambiente, mood
-- Termine sempre com: "Estilo: hiperealista, editorial premium, cinematográfico. Sem texto na imagem."
-- Escreva em inglês para máxima eficácia nos geradores de imagem
-Estrutura: Scene description → Lighting → Color palette → Mood/atmosphere → Technical style`;
+- Termine sempre com: "Style: hyperrealistic, premium editorial, cinematic. No text in the image. Aspect ratio: ${state.activeFormat}."
+- Escreva TODO o prompt em inglês para máxima eficácia nos geradores de imagem
+Estrutura: [Image size line] → Scene description → Lighting → Color palette → Mood/atmosphere → [Technical style line com aspect ratio]`;
 
   try {
     const response = await fetch("https://origem-proxy.rbonaldiimoveis.workers.dev", {
