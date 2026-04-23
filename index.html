@@ -213,6 +213,41 @@ body::before {
   background: rgba(139,92,246,0.08);
 }
 
+.substack-pill {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.05em;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.substack-pill .sp-day {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+.substack-pill .sp-desc {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.substack-pill:hover,
+.substack-pill.active {
+  border-color: #f43f5e;
+  color: #f43f5e;
+  background: rgba(244,63,94,0.08);
+}
+
 textarea {
   width: 100%;
   background: var(--panel);
@@ -900,10 +935,31 @@ textarea::placeholder {
           <div class="card-icon" style="background:rgba(244,63,94,0.15)">📰</div>
           <div>
             <div class="output-title-text">NEWSLETTER · SUBSTACK</div>
-            <div class="output-subtitle">Texto longo · Tom íntimo e reflexivo · Assunto + Corpo completo</div>
+            <div class="output-subtitle" id="substack-mode-label">Terça · Newsletter principal · 800-1.200 palavras · PT</div>
           </div>
         </div>
         <button class="btn-copy" onclick="copyContent('substack-content')">COPIAR</button>
+      </div>
+      <div style="padding: 14px 20px; border-bottom: 1px solid var(--border); background: var(--panel);">
+        <div class="input-label" style="margin-bottom:10px;">Modo da newsletter</div>
+        <div class="context-row" id="substackPills">
+          <div class="substack-pill active" data-smode="terca">
+            <span class="sp-day">TERÇA</span>
+            <span class="sp-desc">800-1.200 palavras · PT</span>
+          </div>
+          <div class="substack-pill" data-smode="quinta">
+            <span class="sp-day">QUINTA</span>
+            <span class="sp-desc">500-700 palavras · PT</span>
+          </div>
+          <div class="substack-pill" data-smode="sabado">
+            <span class="sp-day">SÁBADO</span>
+            <span class="sp-desc">150-300 palavras · EN</span>
+          </div>
+          <div class="substack-pill" data-smode="livre">
+            <span class="sp-day">LIVRE</span>
+            <span class="sp-desc">Tamanho e idioma livres</span>
+          </div>
+        </div>
       </div>
       <div class="output-body empty" id="substack-body">
         <div class="empty-state">
@@ -990,8 +1046,56 @@ const state = {
   activeContext: 'imobiliario',
   activeFormat: '4:5',
   activeFormatLabel: '4:5 — Feed',
+  activeSubstackMode: 'terca',
   generated: {},
   isGenerating: false
+};
+
+const substackModes = {
+  terca: {
+    label: 'Terça · Newsletter principal · 800-1.200 palavras · PT',
+    instruction: `Newsletter principal em PORTUGUÊS. Estrutura:
+ASSUNTO DO EMAIL: [título provocador: número ou paradoxo + promessa]
+SUBTÍTULO: [frase de apoio]
+---
+PARÁGRAFO DE ABERTURA (máx 3 linhas): uma cena, frase do livro lido, ou dado que provoca.
+BLOCO 1 — O gatilho (~200 palavras): o que aconteceu — no treino, na leitura, numa negociação.
+BLOCO 2 — A conexão (~300 palavras): como isso se conecta com o tema principal da semana.
+BLOCO 3 — A aplicação (~300 palavras): o que o leitor pode fazer com isso. Concreto, direto.
+FECHAMENTO — CTA suave (~100 palavras): pergunta aberta + menção a produto/serviço quando relevante.
+Total: 800-1.200 palavras.`
+  },
+  quinta: {
+    label: 'Quinta · Post tático · 500-700 palavras · PT',
+    instruction: `Post tático em PORTUGUÊS. Estrutura:
+ASSUNTO DO EMAIL: "Como [fazer X] usando [ferramenta/método]"
+SUBTÍTULO: [exemplo concreto do universo do autor]
+---
+[PROBLEMA que o leitor tem]
+[SOLUÇÃO específica do autor]
+[PASSO A PASSO rápido — 3 a 5 itens numerados]
+[RESULTADO esperado]
+[CTA direto — agendar, baixar, responder]
+Total: 500-700 palavras. Tom: prático, direto, sem enrolação.`
+  },
+  sabado: {
+    label: 'Sábado · Notes curto · 150-300 palavras · EN',
+    instruction: `Short note in ENGLISH. Structure:
+SUBJECT: [one-line insight or quote]
+---
+A quote or insight in 1-2 sentences.
+The connection with your real world (3-4 sentences).
+One engaging question to the reader.
+Total: 150-300 words. Tone: intimate, sharp, philosophical. Write entirely in English.`
+  },
+  livre: {
+    label: 'Livre · Sem restrição de tamanho ou idioma',
+    instruction: `Newsletter no formato e idioma que melhor se encaixar com a reflexão fornecida.
+ASSUNTO DO EMAIL: [irresistível]
+SUBTÍTULO: [linha de apoio]
+---
+[Desenvolva com profundidade, tom íntimo, como carta para leitor próximo. Termine com pergunta ou convite à reflexão.]`
+  }
 };
 
 const contextLabels = {
@@ -1031,6 +1135,17 @@ document.querySelectorAll('.format-pill').forEach(pill => {
     this.classList.add('active');
     state.activeFormat = this.dataset.fmt;
     state.activeFormatLabel = this.dataset.label;
+  });
+});
+
+// ── SUBSTACK PILLS ──
+document.querySelectorAll('.substack-pill').forEach(pill => {
+  pill.addEventListener('click', function() {
+    document.querySelectorAll('.substack-pill').forEach(p => p.classList.remove('active'));
+    this.classList.add('active');
+    state.activeSubstackMode = this.dataset.smode;
+    const lbl = document.getElementById('substack-mode-label');
+    if (lbl) lbl.textContent = substackModes[state.activeSubstackMode].label;
   });
 });
 
@@ -1153,11 +1268,7 @@ HASHTAGS TIKTOK: [5-6 tags]
 
 **linkedin**: Post profissional. Tom: autoridade, visão de mercado, experiência real. Estrutura: abertura forte → narrativa → insight → aplicação prática → encerramento com pergunta ou reflexão. 400-800 palavras. SEM hashtags excessivas. 1-2 hashtags no máximo.
 
-**substack**: Newsletter completa.
-ASSUNTO DO EMAIL: [linha de assunto irresistível]
-SUBTÍTULO: [uma linha de apoio]
----
-[corpo completo da newsletter: íntimo, reflexivo, como uma carta para um leitor próximo. 400-700 palavras. Desenvolve a ideia com profundidade, histórias pessoais, conexão com o contexto atual. Termina com uma pergunta para o leitor ou convite à reflexão.]
+**substack**: ${substackModes[state.activeSubstackMode].instruction}
 
 **frase**: UMA ÚNICA frase de autoridade. Máx 15 palavras. Para usar sobre foto profissional. Sem aspas. Sem hashtags. Deve parar o scroll. Pode ser provocativa, filosófica ou visionária. Assina: — Robson Bonaldi
 
