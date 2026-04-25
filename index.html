@@ -985,6 +985,17 @@ textarea::placeholder {
   font-style: italic;
 }
 
+
+/* Profile pills — distinct active state */
+#profilePills .context-pill.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+  font-weight: 600;
+}
+#profilePills .context-pill {
+  font-weight: 500;
+}
 </style>
 </head>
 <body>
@@ -1010,24 +1021,17 @@ textarea::placeholder {
   <div class="input-section">
     <div class="input-header">
       <div class="input-label">Reflexão do dia</div>
-      <div class="context-row" id="contextPills">
-        <div class="context-pill active" data-ctx="imobiliario">🏢 Imobiliário</div>
-        <div class="context-pill" data-ctx="performance">⚡ Performance</div>
-        <div class="context-pill" data-ctx="triathlon">🏊 Triathlon</div>
-        <div class="context-pill" data-ctx="vendas">💼 Vendas</div>
-        <div class="context-pill" data-ctx="gestao">👥 Gestão</div>
-        <div class="context-pill" data-ctx="ia">🤖 IA Acelera</div>
+      <div class="context-row" id="profilePills">
+        <div class="context-pill active" data-profile="robson">👤 Robson</div>
+        <div class="context-pill" data-profile="ar">🏢 AR Partners</div>
+        <div class="context-pill" data-profile="ia">🤖 IA Acelera Você</div>
       </div>
     </div>
-
-    <div class="input-label" style="margin-top:16px;">Formato da imagem</div>
-    <div class="context-row" id="formatPills">
-      <div class="format-pill active" data-fmt="4:5" data-label="4:5 — Feed">4:5 Feed</div>
-      <div class="format-pill" data-fmt="1:1" data-label="1:1 — Quadrado">1:1 Quadrado</div>
-      <div class="format-pill" data-fmt="9:16" data-label="9:16 — Stories">9:16 Stories</div>
-      <div class="format-pill" data-fmt="1024x735px" data-label="1024×735px — Landscape">1024×735px</div>
-      <div class="format-pill" data-fmt="1290x1707px" data-label="1290×1707px — Portrait">1290×1707px</div>
+    <div style="margin-top:12px;">
+      <div class="context-row" id="contextPills"></div>
     </div>
+
+
 
     <textarea id="reflexaoInput" placeholder="Cole ou escreva sua reflexão aqui... pode ser curta ou extensa, o PDR vai entender e adaptar para cada mídia." rows="6"></textarea>
     <div class="char-count"><span id="charCount">0</span> caracteres</div>
@@ -1112,25 +1116,6 @@ textarea::placeholder {
 
       <!-- CONFIG CONTROLS -->
       <div class="carr-config">
-
-        <!-- PERFIL -->
-        <div>
-          <div class="carr-col-label" style="margin-bottom:8px;">Perfil</div>
-          <div class="carr-pills-row" id="carrPerfilPills">
-            <div class="carr-pill active" data-idx="0" onclick="carrSelectPerfil(0,this)">
-              <span class="cp-main">Robson</span>
-              <span class="cp-sub">@robsonfreitasbonaldi</span>
-            </div>
-            <div class="carr-pill" data-idx="1" onclick="carrSelectPerfil(1,this)">
-              <span class="cp-main">IA Acelera</span>
-              <span class="cp-sub">@iaaceleravoce</span>
-            </div>
-            <div class="carr-pill" data-idx="2" onclick="carrSelectPerfil(2,this)">
-              <span class="cp-main">AR Partners</span>
-              <span class="cp-sub">@arpartnerssolutions</span>
-            </div>
-          </div>
-        </div>
 
         <!-- SLIDES + TEMA VISUAL -->
         <div class="carr-row">
@@ -1342,11 +1327,10 @@ textarea::placeholder {
         <div class="output-card-title">
           <div class="card-icon" style="background:rgba(139,92,246,0.15)">🎨</div>
           <div>
-            <div class="output-title-text">PROMPT DE IMAGEM</div>
-            <div class="output-subtitle">Para Gemini / ChatGPT · Tom provocador, filosófico, premium</div>
+            <div class="output-title-text">PROMPTS DE IMAGEM — TODOS OS FORMATOS</div>
+            <div class="output-subtitle">5 formatos gerados · Cole direto no Gemini ou ChatGPT</div>
           </div>
         </div>
-        <button class="btn-copy" onclick="copyContent('imagem-content')">COPIAR</button>
       </div>
       <div class="output-body empty" id="imagem-body">
         <div class="empty-state">
@@ -1386,12 +1370,52 @@ textarea::placeholder {
 <script>
 // ── STATE ──
 const state = {
+  activeProfile: 'robson',
   activeContext: 'imobiliario',
-  activeFormat: '4:5',
-  activeFormatLabel: '4:5 — Feed',
   activeSubstackMode: 'terca',
   generated: {},
   isGenerating: false
+};
+
+// Profile → context definitions
+const profileContexts = {
+  robson: [
+    { key: 'imobiliario', label: '🏢 Imobiliário' },
+    { key: 'performance', label: '⚡ Performance' },
+    { key: 'triathlon',   label: '🏊 Triathlon' },
+    { key: 'vendas',      label: '💼 Vendas' },
+    { key: 'gestao',      label: '👥 Gestão' },
+  ],
+  ar: [
+    { key: 'institucional', label: '🏛 Institucional' },
+    { key: 'minimalista',   label: '◻️ Minimalista' },
+    { key: 'curiosidades',  label: '💡 Curiosidades' },
+    { key: 'autoridade',    label: '🎖 Autoridade' },
+    { key: 'branding',      label: '✦ Branding' },
+    { key: 'marca',         label: '🔖 Marca' },
+    { key: 'imigracao',     label: '✈️ Imigração' },
+    { key: 'empresa',       label: '🏢 Empresa' },
+  ],
+  ia: [
+    { key: 'tech',        label: '⚙️ Tech' },
+    { key: 'interessante',label: '🔍 Interessante' },
+    { key: 'provocativo', label: '🔥 Provocativo' },
+    { key: 'tendencias',  label: '📈 Tendências' },
+    { key: 'analogias',   label: '🔗 Analogias IA' },
+    { key: 'ferramentas', label: '🛠 Ferramentas Práticas' },
+    { key: 'mpe',         label: '🏪 Micro/Peq. Empresas' },
+    { key: 'semexp',      label: '🌱 Sem Experiência em IA' },
+  ],
+};
+
+// Profile display info (for system prompt context)
+const profileInfo = {
+  robson: { name: 'Robson Bonaldi', handle: '@robsonfreitasbonaldi',
+    desc: 'Co-fundador AR Partners Solutions (imobiliário premium SC + Florida), Triatleta Ironman, criador da marca IA Acelera Você. Tom: direto, provocativo, de autoridade.' },
+  ar:     { name: 'AR Partners Solutions', handle: '@arpartnerssolutions',
+    desc: 'Imobiliária premium atuando em SC e Florida. Público: investidores e compradores de alto padrão. Tom: institucional, elegante, autoridade de mercado.' },
+  ia:     { name: 'IA Acelera Você', handle: '@iaaceleravoce',
+    desc: 'Marca de educação e ferramentas de IA para empreendedores, micro e pequenas empresas e pessoas sem experiência em tecnologia. Tom: acessível, provocativo, prático.' },
 };
 
 const substackModes = {
@@ -1441,13 +1465,29 @@ SUBTÍTULO: [linha de apoio]
   }
 };
 
+// Flat context label lookup (all profiles combined)
 const contextLabels = {
   imobiliario: 'Mercado Imobiliário Premium (SC + Florida)',
   performance: 'Alta Performance e Mentalidade de Atleta',
   triathlon: 'Triathlon / Ironman como metáfora de vida',
   vendas: 'Vendas, Fechamento e Relacionamento',
   gestao: 'Gestão de Pessoas e Liderança de Times',
-  ia: 'IA, Produtos Digitais e IA Acelera Você'
+  institucional: 'Posicionamento Institucional da AR Partners Solutions',
+  minimalista: 'Comunicação Minimalista e Editorial Premium',
+  curiosidades: 'Curiosidades e Fatos sobre Mercado Imobiliário Internacional',
+  autoridade: 'Construção de Autoridade no Mercado Premium',
+  branding: 'Estratégia de Marca e Identidade Visual',
+  marca: 'Narrativa e Percepção de Marca',
+  imigracao: 'Imigração para os EUA e Processo de Investimento',
+  empresa: 'Bastidores e Cultura da Empresa',
+  tech: 'Tecnologia de IA e Inovação',
+  interessante: 'Fatos e Dados Interessantes sobre IA',
+  provocativo: 'Reflexões Provocativas sobre o Futuro com IA',
+  tendencias: 'Tendências e Movimentos do Mercado de IA',
+  analogias: 'Analogias entre IA e Outros Mercados',
+  ferramentas: 'Ferramentas Práticas de IA para o Dia a Dia',
+  mpe: 'IA para Micro e Pequenas Empresas',
+  semexp: 'IA para Quem Não Tem Experiência em Tecnologia',
 };
 
 // ── DATE ──
@@ -1462,24 +1502,33 @@ document.getElementById('reflexaoInput').addEventListener('input', function() {
   document.getElementById('charCount').textContent = this.value.length;
 });
 
-// ── CONTEXT PILLS ──
-document.querySelectorAll('.context-pill').forEach(pill => {
+// ── PROFILE + CONTEXT PILLS ──
+function renderContextPills(profile) {
+  const row = document.getElementById('contextPills');
+  const ctxs = profileContexts[profile];
+  state.activeContext = ctxs[0].key; // default to first
+  row.innerHTML = ctxs.map((c, i) =>
+    `<div class="context-pill${i===0?' active':''}" data-ctx="${c.key}" onclick="selectContext('${c.key}',this)">${c.label}</div>`
+  ).join('');
+}
+
+function selectContext(key, el) {
+  document.querySelectorAll('#contextPills .context-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  state.activeContext = key;
+}
+
+document.querySelectorAll('#profilePills .context-pill').forEach(pill => {
   pill.addEventListener('click', function() {
-    document.querySelectorAll('.context-pill').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('#profilePills .context-pill').forEach(p => p.classList.remove('active'));
     this.classList.add('active');
-    state.activeContext = this.dataset.ctx;
+    state.activeProfile = this.dataset.profile;
+    renderContextPills(state.activeProfile);
   });
 });
 
-// ── FORMAT PILLS ──
-document.querySelectorAll('.format-pill').forEach(pill => {
-  pill.addEventListener('click', function() {
-    document.querySelectorAll('.format-pill').forEach(p => p.classList.remove('active'));
-    this.classList.add('active');
-    state.activeFormat = this.dataset.fmt;
-    state.activeFormatLabel = this.dataset.label;
-  });
-});
+// Init context pills on load
+renderContextPills('robson');
 
 // ── SUBSTACK PILLS ──
 document.querySelectorAll('.substack-pill').forEach(pill => {
@@ -1557,14 +1606,10 @@ async function generateAll() {
   const ctx = contextLabels[state.activeContext];
   const hoje = now.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
 
-  const systemPrompt = `Você é o PDR — sistema de conteúdo pessoal de Robson Bonaldi (@robsonfreitasbonaldi).
+  const prof = profileInfo[state.activeProfile];
+  const systemPrompt = `Você é ORIGEM — sistema de conteúdo do perfil ${prof.name} (${prof.handle}).
 
-PERFIL DO AUTOR:
-- Co-fundador AR Partners Solutions (imobiliário premium SC + Florida)
-- Triatleta Ironman. Filosofia: "Fazer o que tem que ser feito"
-- Criador da marca IA Acelera Você (produtos: O Grande Conselho, Bíblia Portátil, Carrossel Factory, AskClarix)
-- Expertise: imobiliário de luxo, gestão de times, alta performance, vendas, IA aplicada
-- Tom: direto, provocativo, de autoridade, sem rodeios
+PERFIL ATIVO: ${prof.desc}
 
 CONTEXTO DA REFLEXÃO: ${ctx}
 DATA: ${hoje}
@@ -1617,21 +1662,39 @@ HASHTAGS TIKTOK: [5-6 tags]
 
 **substack**: ${substackModes[state.activeSubstackMode].instruction}
 
-**frase**: UMA ÚNICA frase de autoridade. Máx 15 palavras. Para usar sobre foto profissional. Sem aspas. Sem hashtags. Deve parar o scroll. Pode ser provocativa, filosófica ou visionária. Assina: — Robson Bonaldi
+**frase**: UMA ÚNICA frase de autoridade. Máx 15 palavras. Para usar sobre foto profissional. Sem aspas. Sem hashtags. Deve parar o scroll. Pode ser provocativa, filosófica ou visionária. Assina: — ${prof.name}
 
-**imagem**: Prompt profissional para geração de imagem no Gemini ou ChatGPT.
-O prompt gerado DEVE começar obrigatoriamente com esta linha exata:
-"Image size: ${state.activeFormatLabel} | Aspect ratio: ${state.activeFormat}"
-Depois desta linha, construa o prompt visual seguindo as regras:
-- Tom SEMPRE provocador: justaposição de elementos que não deveriam estar juntos mas criam tensão e beleza
+**imagem**: Gere 5 prompts profissionais para geração de imagem, UM para CADA formato abaixo. Cada prompt deve ser independente e completo.
+
+FORMATO OBRIGATÓRIO — repita exatamente para os 5 formatos, separados por "|||":
+
+[FORMAT: 4:5 Feed | 1080x1350px]
+<prompt em inglês>
+Style: hyperrealistic, premium editorial, cinematic. No text. Aspect ratio: 4:5.
+|||
+[FORMAT: 1:1 Quadrado | 1080x1080px]
+<prompt em inglês>
+Style: hyperrealistic, premium editorial, cinematic. No text. Aspect ratio: 1:1.
+|||
+[FORMAT: 9:16 Stories | 1080x1920px]
+<prompt em inglês>
+Style: hyperrealistic, premium editorial, cinematic. No text. Aspect ratio: 9:16.
+|||
+[FORMAT: 1024x735px Landscape]
+<prompt em inglês>
+Style: hyperrealistic, premium editorial, cinematic. No text. Aspect ratio: 1024x735px.
+|||
+[FORMAT: 1290x1707px Portrait]
+<prompt em inglês>
+Style: hyperrealistic, premium editorial, cinematic. No text. Aspect ratio: 1290x1707px.
+
+REGRAS para cada prompt:
+- Tom SEMPRE provocador: justaposição de elementos que criam tensão e beleza
 - Estética: filosófico + tecnológico + premium + autoridade
-- O viewer deve parar o dedo na tela para processar o que está vendo
-- Use referências visuais cinematográficas, arquitetônicas ou de natureza extrema
-- Nunca pessoas específicas. Pode ter silhueta, sombra, presença humana abstrata
-- Inclua: iluminação dramática, paleta de cores (máx 3 tons), composição, ambiente, mood
-- Termine sempre com: "Style: hyperrealistic, premium editorial, cinematic. No text in the image. Aspect ratio: ${state.activeFormat}."
-- Escreva TODO o prompt em inglês para máxima eficácia nos geradores de imagem
-Estrutura: [Image size line] → Scene description → Lighting → Color palette → Mood/atmosphere → [Technical style line com aspect ratio]`;
+- Nunca pessoas específicas (silhuetas e sombras são ok)
+- Iluminação dramática, paleta de cores (máx 3 tons), composição, ambiente, mood
+- Adapte a composição ao formato (ex: Stories tem mais verticalidade; Feed é quadrado/4:5)
+- Escreva TODO o prompt em inglês`;
 
   try {
     const response = await fetch("https://origem-proxy.rbonaldiimoveis.workers.dev", {
@@ -1706,20 +1769,7 @@ function renderInstagram(text) {
 }
 
 // ── CARROSSEL ENGINE ─────────────────────────────────────────────────────────
-const carrProfiles = [
-  { name: 'Robson Freitas Bonaldi', handle: '@robsonfreitasbonaldi' },
-  { name: 'IA Acelera Você',        handle: '@iaaceleravoce' },
-  { name: 'AR Partners Solutions',  handle: '@arpartnerssolutions' }
-];
-
-let carrState = { profileIdx: 0, slides: 3, theme: 'light', mode: 'info' };
-
-function carrSelectPerfil(i, el) {
-  carrState.profileIdx = i;
-  document.querySelectorAll('#carrPerfilPills .carr-pill').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  carrRebuild();
-}
+let carrState = { slides: 3, theme: 'light', mode: 'info' };
 
 function carrSelectSlides(n, el) {
   carrState.slides = n;
@@ -1752,7 +1802,7 @@ function carrRebuild() {
   const reflexao = carrState.lastReflexao;
   if (!reflexao) return; // not generated yet
 
-  const p        = carrProfiles[carrState.profileIdx];
+  const p        = profileInfo[state.activeProfile]; // synced with main profile
   const bgColor  = carrState.theme === 'dark' ? 'preto (#000000)' : 'branco (#FFFFFF)';
   const txtColor = carrState.theme === 'dark' ? 'branco (#FFFFFF)' : 'preto (#000000)';
   const isVideo  = carrState.mode === 'video';
@@ -1800,7 +1850,10 @@ ${reflexao}
   const body = document.getElementById('carrossel-body');
   body.classList.remove('empty');
   body.innerHTML = `
-    <div class="carr-prompt-label">Prompt do carrossel — Cole no ChatGPT e anexe sua foto</div>
+    <div class="carr-prompt-label" style="display:flex;align-items:center;justify-content:space-between;padding-right:14px;">
+      <span>Prompt do carrossel — Cole no ChatGPT e anexe sua foto</span>
+      <button class="btn-copy" onclick="carrCopiarPrompt()" style="font-size:10px;padding:4px 10px;">COPIAR</button>
+    </div>
     <textarea class="carr-main-prompt" id="carrMainPrompt" readonly>${escHtml(out)}</textarea>
   `;
 
@@ -2040,10 +2093,11 @@ function renderFrase(text) {
   
   const clean = (text||'').replace(/^—\s*Robson Bonaldi\s*$/gim, '').trim();
   
+  const fp = profileInfo[state.activeProfile];
   body.innerHTML = `
     <div class="frase-display">
       <div class="frase-main" id="frase-content">${escHtml(clean)}</div>
-      <div class="frase-assinatura">— Robson Bonaldi · @robsonfreitasbonaldi</div>
+      <div class="frase-assinatura">— ${fp.name} · ${fp.handle}</div>
     </div>
   `;
 }
@@ -2051,7 +2105,46 @@ function renderFrase(text) {
 function renderImagem(text) {
   const body = document.getElementById('imagem-body');
   body.classList.remove('empty');
-  body.innerHTML = `<div id="imagem-content" class="output-text">${formatText(text)}</div>`;
+
+  const formatNames = ['4:5 Feed', '1:1 Quadrado', '9:16 Stories', '1024×735px', '1290×1707px'];
+  const formatIcons = ['📱', '⬛', '📲', '🖼', '📄'];
+  const parts = (text || '').split('|||');
+
+  if (parts.length < 2) {
+    // Fallback: single block
+    body.innerHTML = `<div id="imagem-content" class="output-text" style="padding:20px">${formatText(text)}</div>`;
+    return;
+  }
+
+  const cards = parts.map((part, i) => {
+    const name  = formatNames[i] || ('Formato ' + (i+1));
+    const icon  = formatIcons[i] || '🎨';
+    const clean = part.replace(/\[FORMAT:[^\]]*\]/g, '').trim();
+    const id    = 'imagem-content-' + i;
+    return `
+      <div style="border-bottom:1px solid var(--border);">
+        <div class="output-card-header" style="padding:12px 20px;">
+          <div class="output-card-title">
+            <div class="card-icon" style="background:rgba(139,92,246,0.12);font-size:12px">${icon}</div>
+            <div>
+              <div class="output-title-text" style="font-size:12px;">${name}</div>
+            </div>
+          </div>
+          <button class="btn-copy" onclick="copyImgPrompt('${id}')">COPIAR</button>
+        </div>
+        <div class="output-body" style="padding:16px 20px;">
+          <div id="${id}" class="output-text" style="font-size:13px;">${formatText(clean)}</div>
+        </div>
+      </div>`;
+  }).join('');
+
+  body.innerHTML = cards;
+}
+
+function copyImgPrompt(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.innerText || el.textContent).then(() => showToast('PROMPT COPIADO'));
 }
 
 function renderSintese(data) {
