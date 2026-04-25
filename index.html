@@ -748,6 +748,243 @@ textarea::placeholder {
   .tabs-bar { gap: 0; }
   .tab-btn { padding: 7px 10px; font-size: 9px; }
 }
+
+/* ── CARROSSEL CONFIG CONTROLS ── */
+.carr-config {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.carr-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.carr-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 120px;
+}
+
+.carr-col-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.carr-pill {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.05em;
+  user-select: none;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.carr-pill:hover, .carr-pill.active {
+  border-color: #eab308;
+  color: #92740a;
+  background: rgba(234,179,8,0.08);
+}
+
+.carr-pill .cp-main { font-weight: 600; font-size: 11px; }
+.carr-pill .cp-sub  { font-size: 9px; opacity: 0.7; }
+
+.carr-pills-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.carr-theme-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+.carr-theme-btn:hover, .carr-theme-btn.active {
+  border-color: #eab308;
+  color: #92740a;
+  background: rgba(234,179,8,0.08);
+}
+
+.carr-swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.carr-slide-btn {
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--panel);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transition: all 0.15s;
+  font-family: 'DM Mono', monospace;
+}
+
+.carr-slide-btn:hover, .carr-slide-btn.active {
+  border-color: #eab308;
+  background: rgba(234,179,8,0.08);
+}
+
+.carr-slide-btn .csn { font-size: 18px; font-weight: 600; color: var(--text); line-height: 1; }
+.carr-slide-btn .csd { font-size: 8px; color: var(--muted); letter-spacing: 0.04em; }
+.carr-slide-btn.active .csn, .carr-slide-btn.active .csd { color: #92740a; }
+
+.carr-mode-row {
+  display: flex;
+  gap: 8px;
+}
+
+.carr-mode-btn {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  transition: all 0.15s;
+  text-align: center;
+}
+
+.carr-mode-btn:hover, .carr-mode-btn.active {
+  border-color: #eab308;
+  color: #92740a;
+  background: rgba(234,179,8,0.08);
+}
+
+.carr-video-section {
+  margin-top: 16px;
+  display: none;
+}
+
+.carr-video-section.show { display: block; }
+
+.carr-video-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.carr-video-card:last-child { margin-bottom: 0; }
+
+.carr-video-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+
+.carr-video-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.carr-video-sub {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.carr-prompt-box {
+  width: 100%;
+  min-height: 110px;
+  padding: 12px 14px;
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  border: none;
+  background: var(--surface);
+  color: var(--text);
+  resize: vertical;
+  outline: none;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.carr-main-prompt {
+  width: 100%;
+  min-height: 160px;
+  max-height: 300px;
+  padding: 16px;
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  border: none;
+  background: var(--surface);
+  color: var(--text);
+  resize: vertical;
+  outline: none;
+  line-height: 1.75;
+  white-space: pre-wrap;
+}
+
+.carr-prompt-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 10px 14px 4px;
+  background: var(--panel);
+  border-top: 1px solid var(--border);
+}
+
+.carr-info {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  padding: 12px 14px;
+  border-top: 1px solid var(--border);
+  font-style: italic;
+}
+
 </style>
 </head>
 <body>
@@ -866,18 +1103,104 @@ textarea::placeholder {
         <div class="output-card-title">
           <div class="card-icon" style="background:rgba(234,179,8,0.15)">🎠</div>
           <div>
-            <div class="output-title-text">CARROSSEL · INSTAGRAM / LINKEDIN</div>
-            <div class="output-subtitle">Slides 1024×735px · Estrutura: Hook → Dados → Inversão → CTA</div>
+            <div class="output-title-text">GERADOR DE CARROSSEL</div>
+            <div class="output-subtitle" id="carr-subtitle">Prompt para ChatGPT · Configure e copie</div>
           </div>
         </div>
-        <button class="btn-copy" onclick="copyContent('carrossel-content')">COPIAR</button>
+        <button class="btn-copy" onclick="carrCopiarPrompt()">COPIAR PROMPT</button>
       </div>
-      <div class="output-body empty" id="carrossel-body">
-        <div class="empty-state">
+
+      <!-- CONFIG CONTROLS -->
+      <div class="carr-config">
+
+        <!-- PERFIL -->
+        <div>
+          <div class="carr-col-label" style="margin-bottom:8px;">Perfil</div>
+          <div class="carr-pills-row" id="carrPerfilPills">
+            <div class="carr-pill active" data-idx="0" onclick="carrSelectPerfil(0,this)">
+              <span class="cp-main">Robson</span>
+              <span class="cp-sub">@robsonfreitasbonaldi</span>
+            </div>
+            <div class="carr-pill" data-idx="1" onclick="carrSelectPerfil(1,this)">
+              <span class="cp-main">IA Acelera</span>
+              <span class="cp-sub">@iaaceleravoce</span>
+            </div>
+            <div class="carr-pill" data-idx="2" onclick="carrSelectPerfil(2,this)">
+              <span class="cp-main">AR Partners</span>
+              <span class="cp-sub">@arpartnerssolutions</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDES + TEMA VISUAL -->
+        <div class="carr-row">
+          <div class="carr-col">
+            <div class="carr-col-label">Slides</div>
+            <div class="carr-pills-row">
+              <button class="carr-slide-btn" onclick="carrSelectSlides(1,this)"><span class="csn">1</span><span class="csd">Hook</span></button>
+              <button class="carr-slide-btn" onclick="carrSelectSlides(2,this)"><span class="csn">2</span><span class="csd">Mínimo</span></button>
+              <button class="carr-slide-btn active" onclick="carrSelectSlides(3,this)"><span class="csn">3</span><span class="csd">Texto</span></button>
+              <button class="carr-slide-btn" onclick="carrSelectSlides(4,this)"><span class="csn">4</span><span class="csd">CTA</span></button>
+            </div>
+          </div>
+          <div class="carr-col">
+            <div class="carr-col-label">Tema visual</div>
+            <div class="carr-pills-row">
+              <button class="carr-theme-btn active" onclick="carrSelectTheme('light',this)">
+                <div class="carr-swatch" style="background:#fff;border:1px solid #ccc;"></div> Claro
+              </button>
+              <button class="carr-theme-btn" onclick="carrSelectTheme('dark',this)">
+                <div class="carr-swatch" style="background:#000;"></div> Escuro
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODO -->
+        <div>
+          <div class="carr-col-label" style="margin-bottom:8px;">Modo</div>
+          <div class="carr-mode-row">
+            <button class="carr-mode-btn active" onclick="carrSelectMode('info',this)">Carrossel Informativo</button>
+            <button class="carr-mode-btn" onclick="carrSelectMode('video',this)">Carrossel + Vídeo</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- PROMPT OUTPUT -->
+      <div style="padding:0;" id="carrossel-body">
+        <div class="empty-state" style="padding:40px 0;">
           <div class="empty-icon">🎠</div>
-          <p>Aguardando reflexão...</p>
+          <p>Gere o conteúdo para ver o prompt do carrossel</p>
         </div>
       </div>
+
+      <!-- VIDEO PROMPTS -->
+      <div class="carr-video-section" id="carrVideoSection">
+        <div class="carr-prompt-label">Prompts de vídeo — 8s / 16:9</div>
+        <div class="carr-video-card">
+          <div class="carr-video-header">
+            <div>
+              <div class="carr-video-name">Gemini</div>
+              <div class="carr-video-sub">Google Veo 2 / Gemini Advanced</div>
+            </div>
+            <button class="btn-copy" onclick="carrCopiarVideo('carrGeminiBox')">COPIAR</button>
+          </div>
+          <textarea class="carr-prompt-box" id="carrGeminiBox" readonly></textarea>
+        </div>
+        <div class="carr-video-card">
+          <div class="carr-video-header">
+            <div>
+              <div class="carr-video-name">Kling AI</div>
+              <div class="carr-video-sub">Kling 1.6 / 2.0 — modo Cinematic</div>
+            </div>
+            <button class="btn-copy" onclick="carrCopiarVideo('carrKlingBox')">COPIAR</button>
+          </div>
+          <textarea class="carr-prompt-box" id="carrKlingBox" readonly></textarea>
+        </div>
+        <div class="carr-info">Formato 16:9 — encaixa no rodapé dos slides 1 e 2. Máx 8 segundos. Sem texto, sem narração. Gere na IA de vídeo e insira manualmente no slide.</div>
+      </div>
+
     </div>
   </div>
 
@@ -1204,14 +1527,18 @@ function clearAll() {
   document.getElementById('reflexaoInput').value = '';
   document.getElementById('charCount').textContent = '0';
   state.generated = {};
-  const panels = ['instagram','carrossel','stories','tiktok','linkedin','substack','frase','imagem','sintese'];
-  const icons = { instagram:'📸', carrossel:'🎠', stories:'🎬', tiktok:'📱', linkedin:'💼', substack:'📰', frase:'✍️', imagem:'🎨', sintese:'🗂' };
+  const panels = ['instagram','stories','tiktok','linkedin','substack','frase','imagem','sintese'];
+  const icons = { instagram:'📸', stories:'🎬', tiktok:'📱', linkedin:'💼', substack:'📰', frase:'✍️', imagem:'🎨', sintese:'🗂' };
   const msgs = { sintese: 'Gere o conteúdo primeiro' };
   panels.forEach(p => {
     const body = document.getElementById(p + '-body');
     body.innerHTML = `<div class="empty-state"><div class="empty-icon">${icons[p]}</div><p>${msgs[p] || 'Aguardando reflexão...'}</p></div>`;
     body.classList.add('empty');
   });
+  // Reset carrossel
+  const cb = document.getElementById('carrossel-body');
+  cb.innerHTML = '<div class="empty-state" style="padding:40px 0;"><div class="empty-icon">🎠</div><p>Gere o conteúdo para ver o prompt do carrossel</p></div>';
+  document.getElementById('carrVideoSection').classList.remove('show');
 }
 
 // ── GENERATE ──
@@ -1345,7 +1672,7 @@ Estrutura: [Image size line] → Scene description → Lighting → Color palett
 
 function renderAll(data) {
   renderInstagram(data.instagram);
-  renderCarrossel(data.carrossel);
+  carrRender(data);          // builds carrossel prompt from config + reflexao
   renderStories(data.stories);
   renderTiktok(data.tiktok);
   renderLinkedin(data.linkedin);
@@ -1378,9 +1705,295 @@ function renderInstagram(text) {
   setBodyContent('instagram', 'instagram-content', formatText(text));
 }
 
-function renderCarrossel(text) {
-  setBodyContent('carrossel', 'carrossel-content', formatText(text));
+// ── CARROSSEL ENGINE ─────────────────────────────────────────────────────────
+const carrProfiles = [
+  { name: 'Robson Freitas Bonaldi', handle: '@robsonfreitasbonaldi' },
+  { name: 'IA Acelera Você',        handle: '@iaaceleravoce' },
+  { name: 'AR Partners Solutions',  handle: '@arpartnerssolutions' }
+];
+
+let carrState = { profileIdx: 0, slides: 3, theme: 'light', mode: 'info' };
+
+function carrSelectPerfil(i, el) {
+  carrState.profileIdx = i;
+  document.querySelectorAll('#carrPerfilPills .carr-pill').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  carrRebuild();
 }
+
+function carrSelectSlides(n, el) {
+  carrState.slides = n;
+  document.querySelectorAll('.carr-slide-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  carrRebuild();
+}
+
+function carrSelectTheme(t, el) {
+  carrState.theme = t;
+  document.querySelectorAll('.carr-theme-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  carrRebuild();
+}
+
+function carrSelectMode(m, el) {
+  carrState.mode = m;
+  document.querySelectorAll('.carr-mode-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  carrRebuild();
+}
+
+function carrRender(data) {
+  // Store the reflexao text for rebuild
+  carrState.lastReflexao = document.getElementById('reflexaoInput').value.trim();
+  carrRebuild();
+}
+
+function carrRebuild() {
+  const reflexao = carrState.lastReflexao;
+  if (!reflexao) return; // not generated yet
+
+  const p        = carrProfiles[carrState.profileIdx];
+  const bgColor  = carrState.theme === 'dark' ? 'preto (#000000)' : 'branco (#FFFFFF)';
+  const txtColor = carrState.theme === 'dark' ? 'branco (#FFFFFF)' : 'preto (#000000)';
+  const isVideo  = carrState.mode === 'video';
+  const slides   = carrBuildSlides(carrState.slides, isVideo);
+
+  let out = `Crie um carrossel premium para redes sociais em formato 4:5 (1080x1350), fundo ${bgColor}, escrita em ${txtColor}, estilo editorial minimalista inspirado em posts do LinkedIn/Twitter. Gere todos os slides seguindo as regras abaixo.
+
+ATENÇÃO: Junto a este prompt, enviarei minha foto. Use-a como foto de perfil circular em todos os slides. Não altere meu rosto.
+${isVideo ? '\nOBSERVAÇÃO: Nos slides 1 e 2, no lugar da imagem estática, haverá um VÍDEO 16:9 inserido manualmente. Reserve o espaço com placeholder 16:9 arredondado no rodapé de cada um desses slides.\n' : ''}
+---
+
+REGRAS GLOBAIS (aplicar em todos os slides):
+- Foto de perfil: circular, USAR A IMAGEM FORNECIDA — não alterar o rosto da pessoa
+- Nome: "${p.name}"
+- Username: "${p.handle}"
+- Badge de verificação azul ao lado do nome
+- Fundo: ${bgColor}
+- Cor do texto: ${txtColor}
+- Fonte: sans-serif moderna e limpa (estilo Inter / Helvetica / SF Pro)
+- Sem grandes headlines
+- Sem texto centralizado
+- Sem elementos decorativos — o espaço em branco é o design
+
+---
+
+REFLEXÃO / TEMA DO CARROSSEL:
+${reflexao}
+
+---
+
+`;
+
+  slides.forEach(s => { out += `${s.title}\n\n${s.body}\n\n---\n\n`; });
+
+  out += `LEMBRETES FINAIS:
+- Não alterar o rosto da pessoa
+- Não criar grandes headlines em nenhum slide
+- Slides 2, 3 e 4: texto deve ocupar a largura total utilizável como coluna editorial de revista
+- Slide 1: left-aligned com margens padrão é aceitável
+- Alternar entre linhas descritivas em largura total e destaques curtos em negrito para criar ritmo visual
+- Menos texto é mais — priorizar espaço em branco em todos os slides
+- Manter cada slide limpo, premium e altamente legível`;
+
+  // Render into the panel
+  const body = document.getElementById('carrossel-body');
+  body.classList.remove('empty');
+  body.innerHTML = `
+    <div class="carr-prompt-label">Prompt do carrossel — Cole no ChatGPT e anexe sua foto</div>
+    <textarea class="carr-main-prompt" id="carrMainPrompt" readonly>${escHtml(out)}</textarea>
+  `;
+
+  // Video prompts
+  const vs = document.getElementById('carrVideoSection');
+  if (isVideo) {
+    const vp = carrBuildVideoPrompts(reflexao);
+    document.getElementById('carrGeminiBox').value = vp.gemini;
+    document.getElementById('carrKlingBox').value  = vp.kling;
+    vs.classList.add('show');
+  } else {
+    vs.classList.remove('show');
+  }
+}
+
+function carrCopiarPrompt() {
+  const el = document.getElementById('carrMainPrompt');
+  if (!el) { showToast('GERE O CONTEÚDO PRIMEIRO'); return; }
+  navigator.clipboard.writeText(el.value).then(() => showToast('PROMPT COPIADO'));
+}
+
+function carrCopiarVideo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.value).then(() => showToast('COPIADO'));
+}
+
+function carrBuildSlides(n, isVideo) {
+  const all = [
+    isVideo ? carrSlide1Video() : carrSlide1Info(),
+    isVideo ? carrSlide2Video() : carrSlide2Info(),
+    carrSlide3(),
+    carrSlide4()
+  ];
+  return all.slice(0, n);
+}
+
+function carrSlide1Info() {
+  return { title: 'SLIDE 1 — Narrativo com imagem (hook)', body: `LAYOUT:
+- Header no topo (foto circular + nome + handle + badge)
+- Texto abaixo do header, left-aligned com margens padrão
+- Frases curtas de destaque podem ficar ancoradas à esquerda
+- Imagem 16:9 no rodapé com bordas arredondadas
+- NÃO colocar texto sobre a imagem
+
+ESTILO DE TEXTO:
+- Narrativo e fluido — mais descritivo que os outros slides
+- Mix de frases curtas e médias
+- Espaçamento generoso entre parágrafos
+- Negrito apenas em 1–2 palavras-chave por parágrafo (não frases inteiras)
+- Máximo 2 linhas por bloco de parágrafo
+- Terminar com tensão, open loop ou pergunta para puxar ao próximo slide
+
+IMAGEM:
+- Reforça visualmente a mensagem (foco, negócios, tempo, decisão, reflexão...)
+- Grande o suficiente para ancorar o rodapé do slide` };
+}
+
+function carrSlide2Info() {
+  return { title: 'SLIDE 2 — Espaçado / Minimalista com imagem grande', body: `LAYOUT:
+- Header no topo
+- Texto ocupa a LARGURA TOTAL utilizável do slide — margens pequenas esquerda e direita (24–40px cada lado)
+- Linhas de texto chegam próximas à borda direita, como coluna editorial de revista
+- Imagem 16:9 grande no rodapé com bordas arredondadas
+- NÃO colocar texto sobre a imagem
+
+ESTILO DE TEXTO:
+- Blocos de texto em largura total — sem compressão só à esquerda
+- Menos descritivo que o slide 1 — ir direto ao ponto
+- Ritmo staccato — frases curtas, uma ideia por bloco
+- Cada parágrafo respira independentemente com espaçamento vertical generoso
+- Negrito apenas em 1–2 palavras-chave por parágrafo
+- Máximo 2 linhas por bloco de parágrafo
+- Evitar adjetivos e palavras de enchimento
+- Contraste entre linha curta em negrito e linha descritiva em largura total cria ritmo visual` };
+}
+
+function carrSlide1Video() {
+  return { title: 'SLIDE 1 — Narrativo com vídeo (hook)', body: `LAYOUT:
+- Header no topo (foto circular + nome + handle + badge)
+- Texto abaixo do header, left-aligned com margens padrão
+- VÍDEO 16:9 no rodapé com bordas arredondadas (no lugar da imagem estática)
+- NÃO colocar texto sobre o vídeo
+- O vídeo será inserido manualmente — reserve o espaço com placeholder 16:9 arredondado
+
+ESTILO DE TEXTO:
+- Narrativo e fluido — mais descritivo que os outros slides
+- Mix de frases curtas e médias
+- Espaçamento generoso entre parágrafos
+- Negrito apenas em 1–2 palavras-chave por parágrafo (não frases inteiras)
+- Máximo 2 linhas por bloco de parágrafo
+- Terminar com tensão, open loop ou pergunta para puxar ao próximo slide` };
+}
+
+function carrSlide2Video() {
+  return { title: 'SLIDE 2 — Espaçado / Minimalista com vídeo grande', body: `LAYOUT:
+- Header no topo
+- Texto ocupa a LARGURA TOTAL utilizável do slide — margens pequenas esquerda e direita (24–40px cada lado)
+- VÍDEO 16:9 grande no rodapé com bordas arredondadas
+- NÃO colocar texto sobre o vídeo
+- O vídeo será inserido manualmente — reserve o espaço com placeholder 16:9 arredondado
+
+ESTILO DE TEXTO:
+- Blocos de texto em largura total — sem compressão só à esquerda
+- Menos descritivo que o slide 1 — ir direto ao ponto
+- Ritmo staccato — frases curtas, uma ideia por bloco
+- Cada parágrafo respira independentemente com espaçamento vertical generoso
+- Negrito apenas em 1–2 palavras-chave por parágrafo
+- Máximo 2 linhas por bloco de parágrafo
+- Evitar adjetivos e palavras de enchimento` };
+}
+
+function carrSlide3() {
+  return { title: 'SLIDE 3 — Somente texto, múltiplos parágrafos, fechamento em negrito', body: `LAYOUT:
+- Grande espaço em branco no topo (15–20% da altura do slide) antes do header
+- Header posicionado mais abaixo que nos slides 1 e 2
+- SEM imagem ou vídeo no rodapé — slide somente texto
+- Texto ocupa a LARGURA TOTAL utilizável — margens pequenas esquerda e direita (24–40px cada lado)
+- Grande espaço em branco abaixo da última linha
+
+ESTILO DE TEXTO:
+- Até 5 blocos curtos de parágrafo
+- Cada parágrafo = uma ideia, máximo 2 linhas
+- Linhas descritivas em largura total alternam com linhas curtas em negrito para contraste e ritmo visual
+- Espaçamento vertical muito generoso entre os blocos
+- Negrito apenas em 1–2 palavras-chave por parágrafo
+- Última linha: inteiramente em negrito — frase de impacto final
+- Direto ao ponto, sem enchimento` };
+}
+
+function carrSlide4() {
+  return { title: 'SLIDE 4 (FINAL) — CTA ultra minimalista', body: `LAYOUT:
+- Espaço em branco massivo no topo (35–45% da altura do slide antes do header)
+- Header aparece verticalmente centralizado no slide
+- SEM imagem ou vídeo
+- Texto ocupa a LARGURA TOTAL — margens pequenas esquerda e direita (24–40px cada lado)
+- Grande espaço em branco abaixo do texto
+- O slide respira completamente
+
+ESTILO DE TEXTO:
+- SEM negrito em nenhum lugar — slide inteiro em peso regular
+- Apenas 2 blocos curtos de parágrafo, ambos em largura total
+- Primeiro bloco pode ter 2 linhas em largura total
+- Segundo bloco é o CTA — mais curto, direto, conversacional
+- Espaçamento vertical generoso entre os 2 blocos
+- Tom humano — não é um CTA de marketing
+
+OPÇÕES DE CTA (escolher conforme contexto/tema):
+- Follow CTA: "Me segue aqui pra acompanhar." ou equivalente
+- Pergunta: "Me conta nos comentários." ou equivalente
+- Salvar/Compartilhar: "Salva esse post antes de perder." ou equivalente` };
+}
+
+function carrBuildVideoPrompts(tema) {
+  const mood = carrState.theme === 'dark'
+    ? 'dark cinematic atmosphere, deep blacks, dramatic lighting, high contrast'
+    : 'clean bright editorial atmosphere, soft natural light, airy and minimal';
+
+  const gemini = `Generate a short cinematic video clip.
+
+FORMAT: 16:9 widescreen, maximum 8 seconds
+NO text on screen. NO voiceover. NO narration. NO subtitles.
+
+THEME: ${tema}
+
+VISUAL STYLE: ${mood}. Abstract and metaphorical — do not illustrate the theme literally. Think the opening shot of a premium documentary or luxury brand commercial.
+
+CAMERA MOVEMENT: Slow, intentional — subtle zoom in, gentle pan, or still shot with ambient motion in the scene.
+
+COLOR GRADING: Cinematic. ${carrState.theme === 'dark' ? 'Rich blacks, selective highlights, moody contrast.' : 'Natural tones, soft contrast, slight warmth.'}
+
+OUTPUT: Single continuous shot. No cuts. No transitions. No audio required.`;
+
+  const kling = `Cinematic video. 16:9. 8 seconds max.
+No text. No voiceover. No narration. No subtitles.
+
+THEME: ${tema}
+
+MOOD: ${mood}
+Abstract visual metaphor — not a literal illustration of the theme.
+Think: opening shot of a high-end documentary or luxury brand film.
+
+CAMERA: Slow gentle movement. Subtle zoom in OR slow pan. One continuous shot. No cuts.
+
+COLOR: Cinematic grade. ${carrState.theme === 'dark' ? 'Deep blacks, selective highlights, dramatic contrast.' : 'Natural light, soft contrast, editorial warmth.'}
+
+STYLE: Photorealistic. Premium. Still frames should feel like magazine covers.
+
+No audio required.`;
+
+  return { gemini, kling };
+}
+// ── END CARROSSEL ENGINE ──────────────────────────────────────────────────────
 
 function renderStories(text) {
   const body = document.getElementById('stories-body');
