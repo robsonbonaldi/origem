@@ -1138,8 +1138,7 @@ textarea::placeholder { color: var(--dim); font-style: italic; }
         Mídias para gerar <span class="media-count" id="mediaCount">8 de 8 selecionadas</span>
       </div>
       <div class="media-selector-actions">
-        <button class="btn-select-all" onclick="selectAllMedia()">Todas</button>
-        <button class="btn-select-none" onclick="selectNoMedia()">Nenhuma</button>
+        <button class="btn-select-all" onclick="selectAllMedia()">Selecionar todas</button>
       </div>
     </div>
     <div class="media-toggles" id="mediaToggles">
@@ -1537,7 +1536,8 @@ function selectAllMedia() {
   updateTabDimming();
 }
 
-function selectNoMedia() {
+// REMOVED selectNoMedia
+function selectNoMedia_DISABLED() {
   mediaToggles.forEach(toggle => {
     const media = toggle.dataset.media;
     state.selectedMedias.delete(media);
