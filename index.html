@@ -2010,16 +2010,11 @@ function carrRebuild() {
   const slides = carrBuildSlides(carrState.slides, isVideo);
 
   let out = `Crie um carrossel premium para redes sociais em formato 4:5 (1080x1350), fundo ${bgColor}, escrita em ${txtColor}, estilo editorial minimalista inspirado em posts do LinkedIn/Twitter. Gere todos os slides seguindo as regras abaixo.
-
-ATENÇÃO: Junto a este prompt, enviarei minha foto. Use-a como foto de perfil circular em todos os slides. Não altere meu rosto.
-${isVideo ? '\nOBSERVAÇÃO: Nos slides 1 e 2, no lugar da imagem estática, haverá um VÍDEO 16:9 inserido manualmente. Reserve o espaço com placeholder 16:9 arredondado no rodapé de cada um desses slides.\n' : ''}
+${isVideo ? '\nOBSERVAÇÃO: Nos slides 1 e 2, haverá um VÍDEO 16:9 inserido manualmente no rodapé. Reserve o espaço com placeholder 16:9 arredondado no rodapé de cada um desses slides.\n' : ''}
 ---
 
 REGRAS GLOBAIS (aplicar em todos os slides):
-- Foto de perfil: circular, USAR A IMAGEM FORNECIDA — não alterar o rosto da pessoa
-- Nome: "${p.name}"
-- Username: "${p.handle}"
-- Badge de verificação azul ao lado do nome
+- Sem foto de perfil, sem nome, sem handle, sem badge — slides 100% editoriais
 - Fundo: ${bgColor}
 - Cor do texto: ${txtColor}
 - Fonte: sans-serif moderna e limpa (estilo Inter / Helvetica / SF Pro)
@@ -2039,7 +2034,7 @@ ${reflexao}
   slides.forEach(s => { out += `${s.title}\n\n${s.body}\n\n---\n\n`; });
 
   out += `LEMBRETES FINAIS:
-- Não alterar o rosto da pessoa
+- Sem foto de perfil, nome ou handle em nenhum slide
 - Não criar grandes headlines em nenhum slide
 - Slides 2, 3 e 4: texto deve ocupar a largura total utilizável como coluna editorial de revista
 - Slide 1: left-aligned com margens padrão é aceitável
@@ -2091,11 +2086,12 @@ function carrBuildSlides(n, isVideo) {
 }
 
 function carrSlide1Info() {
-  return { title: 'SLIDE 1 — Narrativo com imagem (hook)', body: `LAYOUT:
-- Header no topo (foto circular + nome + handle + badge)
-- Texto abaixo do header, left-aligned com margens padrão
-- Frases curtas de destaque podem ficar ancoradas à esquerda
-- Imagem 16:9 no rodapé com bordas arredondadas
+  return { title: 'SLIDE 1 — Narrativo com imagem gerada (hook)', body: `GERAR IMAGEM COMPLETA do slide 1 em 1080x1350px, fundo conforme regra global.
+
+LAYOUT:
+- Texto no topo, left-aligned com margens padrão (sem header de perfil)
+- Frases curtas de destaque ancoradas à esquerda
+- Imagem 16:9 gerada por você no rodapé com bordas arredondadas — imagem editorial, cinematográfica, sem texto, sem pessoas identificáveis
 - NÃO colocar texto sobre a imagem
 
 ESTILO DE TEXTO:
@@ -2106,17 +2102,20 @@ ESTILO DE TEXTO:
 - Máximo 2 linhas por bloco de parágrafo
 - Terminar com tensão, open loop ou pergunta para puxar ao próximo slide
 
-IMAGEM:
-- Reforça visualmente a mensagem (foco, negócios, tempo, decisão, reflexão...)
-- Grande o suficiente para ancorar o rodapé do slide` };
+IMAGEM 16:9 NO RODAPÉ:
+- Gere uma imagem editorial, cinematográfica, que reforce o tema do slide
+- Iluminação dramática, paleta de no máximo 3 tons, composição premium
+- Sem texto, sem rosto identificável, sem marca` };
 }
 
 function carrSlide2Info() {
-  return { title: 'SLIDE 2 — Espaçado / Minimalista com imagem grande', body: `LAYOUT:
-- Header no topo
+  return { title: 'SLIDE 2 — Espaçado / Minimalista com imagem gerada', body: `GERAR IMAGEM COMPLETA do slide 2 em 1080x1350px, fundo conforme regra global.
+
+LAYOUT:
+- Sem header de perfil
 - Texto ocupa a LARGURA TOTAL utilizável do slide — margens pequenas esquerda e direita (24–40px cada lado)
 - Linhas de texto chegam próximas à borda direita, como coluna editorial de revista
-- Imagem 16:9 grande no rodapé com bordas arredondadas
+- Imagem 16:9 gerada por você no rodapé com bordas arredondadas
 - NÃO colocar texto sobre a imagem
 
 ESTILO DE TEXTO:
@@ -2127,16 +2126,19 @@ ESTILO DE TEXTO:
 - Negrito apenas em 1–2 palavras-chave por parágrafo
 - Máximo 2 linhas por bloco de parágrafo
 - Evitar adjetivos e palavras de enchimento
-- Contraste entre linha curta em negrito e linha descritiva em largura total cria ritmo visual` };
+- Contraste entre linha curta em negrito e linha descritiva em largura total cria ritmo visual
+
+IMAGEM 16:9 NO RODAPÉ:
+- Diferente da imagem do slide 1 — nova composição, mesmo universo visual
+- Editorial, cinematográfica, sem texto, sem rosto identificável` };
 }
 
 function carrSlide1Video() {
-  return { title: 'SLIDE 1 — Narrativo com vídeo (hook)', body: `LAYOUT:
-- Header no topo (foto circular + nome + handle + badge)
-- Texto abaixo do header, left-aligned com margens padrão
-- VÍDEO 16:9 no rodapé com bordas arredondadas (no lugar da imagem estática)
-- NÃO colocar texto sobre o vídeo
-- O vídeo será inserido manualmente — reserve o espaço com placeholder 16:9 arredondado
+  return { title: 'SLIDE 1 — Narrativo com espaço para vídeo (hook)', body: `LAYOUT:
+- Sem header de perfil
+- Texto no topo, left-aligned com margens padrão
+- VÍDEO 16:9 será inserido manualmente no rodapé — reserve o espaço com placeholder 16:9 arredondado (retângulo vazio com bordas arredondadas, sem cor de fundo)
+- NÃO colocar texto sobre a área do vídeo
 
 ESTILO DE TEXTO:
 - Narrativo e fluido — mais descritivo que os outros slides
@@ -2148,12 +2150,11 @@ ESTILO DE TEXTO:
 }
 
 function carrSlide2Video() {
-  return { title: 'SLIDE 2 — Espaçado / Minimalista com vídeo grande', body: `LAYOUT:
-- Header no topo
+  return { title: 'SLIDE 2 — Espaçado / Minimalista com espaço para vídeo', body: `LAYOUT:
+- Sem header de perfil
 - Texto ocupa a LARGURA TOTAL utilizável do slide — margens pequenas esquerda e direita (24–40px cada lado)
-- VÍDEO 16:9 grande no rodapé com bordas arredondadas
-- NÃO colocar texto sobre o vídeo
-- O vídeo será inserido manualmente — reserve o espaço com placeholder 16:9 arredondado
+- VÍDEO 16:9 será inserido manualmente no rodapé — reserve o espaço com placeholder 16:9 arredondado (retângulo vazio com bordas arredondadas, sem cor de fundo)
+- NÃO colocar texto sobre a área do vídeo
 
 ESTILO DE TEXTO:
 - Blocos de texto em largura total — sem compressão só à esquerda
@@ -2167,8 +2168,8 @@ ESTILO DE TEXTO:
 
 function carrSlide3() {
   return { title: 'SLIDE 3 — Somente texto, múltiplos parágrafos, fechamento em negrito', body: `LAYOUT:
-- Grande espaço em branco no topo (15–20% da altura do slide) antes do header
-- Header posicionado mais abaixo que nos slides 1 e 2
+- Sem header de perfil
+- Grande espaço em branco no topo (15–20% da altura do slide)
 - SEM imagem ou vídeo no rodapé — slide somente texto
 - Texto ocupa a LARGURA TOTAL utilizável — margens pequenas esquerda e direita (24–40px cada lado)
 - Grande espaço em branco abaixo da última linha
@@ -2185,8 +2186,8 @@ ESTILO DE TEXTO:
 
 function carrSlide4() {
   return { title: 'SLIDE 4 (FINAL) — CTA ultra minimalista', body: `LAYOUT:
-- Espaço em branco massivo no topo (35–45% da altura do slide antes do header)
-- Header aparece verticalmente centralizado no slide
+- Sem header de perfil
+- Espaço em branco massivo no topo (35–45% da altura do slide)
 - SEM imagem ou vídeo
 - Texto ocupa a LARGURA TOTAL — margens pequenas esquerda e direita (24–40px cada lado)
 - Grande espaço em branco abaixo do texto
