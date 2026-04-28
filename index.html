@@ -1142,46 +1142,38 @@ textarea::placeholder { color: var(--dim); font-style: italic; }
       </div>
     </div>
     <div class="media-toggles" id="mediaToggles">
-      <label class="media-toggle selected" data-media="instagram" style="--color:#f97316">
-        <input type="checkbox" checked>
+      <div class="media-toggle selected" data-media="instagram" style="--color:#f97316" onclick="toggleMedia(this)">
         <div class="media-toggle-dot"></div>
         <span class="media-toggle-name">📸 Instagram</span>
-      </label>
-      <label class="media-toggle selected" data-media="carrossel" style="--color:#eab308">
-        <input type="checkbox" checked>
+      </div>
+      <div class="media-toggle selected" data-media="carrossel" style="--color:#eab308" onclick="toggleMedia(this)">
         <div class="media-toggle-dot"></div>
         <span class="media-toggle-name">🎠 Carrossel</span>
-      </label>
-      <label class="media-toggle selected" data-media="stories" style="--color:#a855f7">
-        <input type="checkbox" checked>
+      </div>
+      <div class="media-toggle selected" data-media="stories" style="--color:#a855f7" onclick="toggleMedia(this)">
         <div class="media-toggle-dot"></div>
         <span class="media-toggle-name">🎬 Stories/Reels</span>
-      </label>
-      <label class="media-toggle selected" data-media="tiktok" style="--color:#06b6d4">
-        <input type="checkbox" checked>
+      </div>
+      <div class="media-toggle selected" data-media="tiktok" style="--color:#06b6d4" onclick="toggleMedia(this)">
         <div class="media-toggle-dot"></div>
         <span class="media-toggle-name">📱 TikTok</span>
-      </label>
-      <label class="media-toggle selected" data-media="linkedin" style="--color:#22c55e">
-        <input type="checkbox" checked>
+      </div>
+      <div class="media-toggle selected" data-media="linkedin" style="--color:#22c55e" onclick="toggleMedia(this)">
         <div class="media-toggle-dot"></div>
         <span class="media-toggle-name">💼 LinkedIn</span>
-      </label>
-      <label class="media-toggle selected" data-media="substack" style="--color:#f43f5e">
-        <input type="checkbox" checked>
+      </div>
+      <div class="media-toggle selected" data-media="substack" style="--color:#f43f5e" onclick="toggleMedia(this)">
         <div class="media-toggle-dot"></div>
         <span class="media-toggle-name">📰 Substack</span>
-      </label>
-      <label class="media-toggle selected" data-media="frase" style="--color:#fbbf24">
-        <input type="checkbox" checked>
+      </div>
+      <div class="media-toggle selected" data-media="frase" style="--color:#fbbf24" onclick="toggleMedia(this)">
         <div class="media-toggle-dot"></div>
         <span class="media-toggle-name">✍️ Frase</span>
-      </label>
-      <label class="media-toggle selected" data-media="imagem" style="--color:#8b5cf6">
-        <input type="checkbox" checked>
+      </div>
+      <div class="media-toggle selected" data-media="imagem" style="--color:#8b5cf6" onclick="toggleMedia(this)">
         <div class="media-toggle-dot"></div>
         <span class="media-toggle-name">🎨 Prompt Imagem</span>
-      </label>
+      </div>
     </div>
   </div>
 
@@ -1505,32 +1497,24 @@ const state = {
 };
 
 // ── MEDIA SELECTION ──
-const mediaToggles = document.querySelectorAll('.media-toggle');
-
-mediaToggles.forEach(toggle => {
-  toggle.addEventListener('click', () => {
-    const media = toggle.dataset.media;
-    const cb = toggle.querySelector('input[type="checkbox"]');
-    if (state.selectedMedias.has(media)) {
-      state.selectedMedias.delete(media);
-      toggle.classList.remove('selected');
-      cb.checked = false;
-    } else {
-      state.selectedMedias.add(media);
-      toggle.classList.add('selected');
-      cb.checked = true;
-    }
-    updateMediaCount();
-    updateTabDimming();
-  });
-});
+function toggleMedia(el) {
+  const media = el.dataset.media;
+  if (state.selectedMedias.has(media)) {
+    state.selectedMedias.delete(media);
+    el.classList.remove('selected');
+  } else {
+    state.selectedMedias.add(media);
+    el.classList.add('selected');
+  }
+  updateMediaCount();
+  updateTabDimming();
+}
 
 function selectAllMedia() {
-  mediaToggles.forEach(toggle => {
+  document.querySelectorAll('.media-toggle').forEach(toggle => {
     const media = toggle.dataset.media;
     state.selectedMedias.add(media);
     toggle.classList.add('selected');
-    toggle.querySelector('input').checked = true;
   });
   updateMediaCount();
   updateTabDimming();
